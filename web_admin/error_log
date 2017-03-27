@@ -1,0 +1,18 @@
+[18-Jun-2015 12:10:07 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 16
+[18-Jun-2015 12:10:20 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 16
+[18-Jun-2015 12:10:41 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 16
+[18-Jun-2015 12:21:21 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 43
+[18-Jun-2015 12:25:57 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 43
+[18-Jun-2015 12:29:21 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 43
+[18-Jun-2015 12:33:28 UTC] PHP Fatal error:  Call to undefined method Captcha::random() in /home/krishnatry123/public_html/gokadabra/application/modules/captcha/controllers/captcha.php on line 43
+[22-Jun-2015 13:05:25 UTC] PHP Fatal error:  Call to undefined method Home::registerUser() in /home/krishnatry123/public_html/gokadabra/application/modules/home/controllers/home.php on line 17
+[22-Jun-2015 13:06:09 UTC] PHP Fatal error:  Call to undefined method Home::registerUser() in /home/krishnatry123/public_html/gokadabra/application/modules/home/controllers/home.php on line 17
+[23-Jun-2015 07:41:35 UTC] PHP Fatal error:  Call to undefined method MY_Loader::modile() in /home/krishnatry123/public_html/gokadabra/application/modules/admin/controllers/admin.php on line 11
+[24-Jun-2015 06:25:07 UTC] PHP Fatal error:  Cannot redeclare Pages::faqs() in /home/krishnatry123/public_html/gokadabra/application/modules/pages/controllers/pages.php on line 16
+[24-Jun-2015 08:16:53 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/krishnatry123/public_html/gokadabra/application/modules/account/controllers/account.php on line 22
+[09-Jul-2015 15:17:52 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/krishnatry123/public_html/gokadabra/application/modules/account/controllers/account.php on line 32
+[09-Jul-2015 15:18:20 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/krishnatry123/public_html/gokadabra/application/modules/account/controllers/account.php on line 32
+[10-Jul-2015 09:53:44 UTC] PHP Fatal error:  Call to a member function mysql_affected_rows() on a non-object in /home/krishnatry123/public_html/gokadabra/application/modules/account/controllers/account.php on line 57
+[10-Jul-2015 09:54:23 UTC] PHP Fatal error:  Call to a member function affected_rows() on a non-object in /home/krishnatry123/public_html/gokadabra/application/modules/account/controllers/account.php on line 57
+[10-Jul-2015 09:55:26 UTC] PHP Fatal error:  Call to a member function affected_rows() on a non-object in /home/krishnatry123/public_html/gokadabra/application/modules/account/controllers/account.php on line 57
+[10-Jul-2015 09:56:50 UTC] PHP Fatal error:  Cannot access empty property in /home/krishnatry123/public_html/gokadabra/application/third_party/MX/Controller.php on line 58

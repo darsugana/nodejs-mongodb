@@ -1,0 +1,57 @@
+<h1 class="pageTitle">What do we charge for this personal butler ready to do whatever you want 24X7?</h1>
+
+<div class="pageLeft">
+
+	<?php echo form_open('home/registerUser'); ?>
+        <div class="inputContainer">
+            <input  type="text" name="name" placeholder="Name" />
+        </div>
+        <div class="inputContainer">
+            <input type="tel" name="phone" placeholder="Phone" />
+        </div>
+        <div class="inputContainer">
+            <input type="email" name="email" placeholder="Email" />
+        </div>
+        <div class="inputContainer">
+            <input type="submit" name="submit" value="Its free.. So use GoKadabra now!" />
+        </div>
+
+    <?php echo form_close(); ?>
+
+    <div class="storLinks">
+
+        <img src="<?=$assets?>/images/google_play_icon.jpg" alt="Google Play" />
+
+        <img src="<?=$assets?>/images/app_store_icon.jpg" alt="Apple Store" />
+
+    </div>
+
+</div>
+
+<div class="pageRight">
+	<div class="homebeforeChat">
+    	<p class="strongType">Chat with us to get whatever you want at no extra cost</p>
+    <p>We as your personal assistant, concierge, butler – want to make life easier for you.  Just message us whatever you need.</p>
+    <p>GoKadabra gets everything you want and need, all in one place. so whether it comes to ordering food, groceries, booze,gifts, cakes and flowers or booking taxis, flights, hotels, movies and plays or making reservations for dinner ,appointments with the salon or dentist Anything under the Sun!</p>
+<p>Why do it yourself, when we can do it for you. GoKadabra gets everything you want and need, all in one place..</p>
+    </div>
+    <div id="chat-window">
+    		<div id="pageloader"></div>
+            <div id="chat-header"><a class="chat-close">X</a></div>
+            <iframe src="" width="600" height="400"></iframe>
+    </div>
+               
+
+</div>
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="liveChat">
+    <div class="cover">
+        <a href="javascript:void(0)" id="chat-link" data-url="<?=base_url()?>template/client_view"><i class="fa fa-wechat fa-lg"></i>Live Chat </a>               
+    </div>
+</div>
+<div>
+<div>

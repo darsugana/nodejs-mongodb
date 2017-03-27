@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html class="ui-mobile">
+    <head>
+        <title>TriEffects Live Chat</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		
+		
+
+		<!-- jQueryMobileCSS - original without styling -->
+		<link rel="stylesheet" href="<?=$assets?>/css/main.css" />
+			
+         <!-- jQueryMobileCSS - original without styling -->
+		<link rel="stylesheet" href="<?=$assets?>/css/font-awesome.min.css" />
+         <!-- jQueryMobileCSS - original without styling -->
+		<link rel="stylesheet" href="<?=$assets?>/css/font-awesome.css" />
+
+		<!-- nativeDroid core CSS -->
+        <link rel="stylesheet" href="<?=$assets?>/css/jquerymobile.nativedroid.css" />
+
+		<!-- nativeDroid: Dark -->
+        <link rel="stylesheet" href="<?=$assets?>/css/jquerymobile.nativedroid.light.css"  id='jQMnDTheme' />
+
+		<!-- nativeDroid: Color Schemes -->
+        <link rel="stylesheet" href="<?=$assets?>/css/style.css" id='jQMnDColor' />
+
+		<!-- jQuery / jQueryMobile Scripts -->
+		<script src="<?=$assets?>/js/client/jquery-1.9.1.min.js"></script>
+		 <script type="text/javascript" src="<?=$assets?>/js/client/jquery.xdomainajax.js"></script>
+        <script src="<?=$assets?>/js/client/jquery.mobile-1.4.2.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+         <script src="<?=$assets?>/js/client/custom.js"></script>
+        <script src="http://191.239.12.168:1710/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="<?=$assets?>/js/client/customize.js"></script>
+  </head>
+    
+	 <body class="ui-mobile-viewport ui-overlay-a">
+   
+
+   		
+    <div data-role="page" data-theme='b' class="ui-content">
+    		
+            
+    
+         <div data-role="header" data-position="fixed" data-tap-toggle="false" data-theme='b' class="text-red">
+            
+            <img id="logo" class="header-logo margin-top10 chat-img-h1" src="<?=$assets?>/images/logo-img.png" width="42" height="47" alt="">
+           <h6 class="padding-left6 chat-img-h" id="users"><span id="psname">Gokadabra</span> <br><span class="font-size11" id="lastseen">last seen on time</span></h6>
+             
+            <!---->
+        </div>	
+         
+				
+        <div data-role="content" id="bubble" class="margin-top90 margin-top-sm"> 
+        		
+                <div id="nickWrap">
+                <div class="ui-grid-solo">
+                     <div class="ui-grid-solo margin-solo1 main-box-with-shadow">	
+						<div class="ui-block-a">
+                        	<p class="justify" id="errmmsg">Please login with your registered email or phone to start chatting.</p>
+                             <p id="nickError"></p>
+                            <form id="setNick" action="http://gokadabra.topuserapps.com/account/serviceLogin" method="post">
+                            	 <ul data-role="listview" data-inset="true">
+                             <li data-role="fieldcontain">
+                        <div class="ui-grid-solo">
+                        	
+                        	<div class="">
+                            	<input type="text" name="login" id="nickname" value="" data-clear-btn="true" placeholder="Enter email or phone to login."/>
+                                <br> <button id="nick23" class="ui-btn btn-submit" style="color:#fff;" type="submit">Log In</button>
+								 
+                            </div>
+							<p style="text-align:center; font-size:15px;" id="dh">Don't have, <a href="#" id="psreg" style="text-decoration:none;">Create Account.</a></p>
+                        </div>
+                       
+                         
+                    </li>     
+                           </form><!--End Login -->
+						   <!--Start Register -->
+					
+                        </div>
+						<form id="setRegg" action="http://gokadabra.topuserapps.com/account/serviceSignup" method="post" hidden="">
+                            	 <ul data-role="listview" data-inset="true">
+                             <li data-role="fieldcontain">
+                        <div class="ui-grid-solo">
+                        	
+                        	<div class="">
+                            	<input type="text" name="name" id="psname" value="" data-clear-btn="true" placeholder="Jhon Doe"/>
+								<input type="text" name="email" id="psemail" value="" data-clear-btn="true" placeholder="jhon@example.com" required/>
+								<input type="text" name="phone" id="psphone" value="" data-clear-btn="true" placeholder="10 digit phone number" required/><br>
+                                 <button id="nick17" class="ui-btn btn-submit" style="color:#fff;" type="submit">Sign Up</button>
+								 
+                            </div>
+                        </div>
+                       
+                         
+                    </li>     
+                            </form>
+
+                    </div>
+                  
+                
+                </div>
+                </div>
+                <div id="contentWrap" style="display:none;">
+                
+                <!--End Form Input -->
+                <div data-role="popup" id="controls" class="ui-overlay-b">
+					
+	
+		<!-- /navbar -->
+	  <!--Start Setting Popup -->
+                
+    <!-- End Setting Pop Up -->
+
+         	</div>
+            		<div id="foo1"></div>
+					<div id="foo"></div>
+                    
+                  	
+              		
+                    
+                   <!-- end ui-grid-solo-->
+                    
+                
+                  <div id="scrolly" class="margin-top75">&nbsp;</div>  
+      <div id="footer" class="main-box-with-shadow chat-footer-bg"> 
+        <div id="type" class="ui-grid-solo ui-navbar" data-role="navbar" role="navigation">
+        			
+                   <span class="chat-footer-span1"> <img src="<?=$assets?>/images/icon-smile1.png" height="25" width="25" style="
+    margin-top: 10px;
+"></span>
+                   <span class="chat-footer-span2">
+              		<form id="send-message">
+                    <input type="text" name="name" id="msg" value="" placeholder="Write a message"  class="important"/>
+					
+                    </form>
+                   </span>
+                    <span class="pull-left chat-footer-span3"><i class="fa fa-microphone"></i> </span> 
+                   <span id="chaxt" class="chat-footer-span4">Send</span>
+                
+        </div>
+        <ul id="uszers"></ul>
+        </div> 
+         <!--<div class="ui-grid-b" id="type">
+                <div class="list ui-block-a width3">
+                <img src="<?=$assets?>/images/icon-smile.png" width="60" height="60" alt=""> </div>
+                <div class="list ui-block-b width90">
+                   <form class="inputtype"> 
+                    <input id="msg" type="text" placeholder="Type your message here..."/>
+                    </form>
+                    
+                </div>
+                <div class="list ui-block-b width3">
+                
+                <img id="chat" src="<?=$assets?>/images/icon-arrow.png" width="60" height="60" alt=""> </div>
+            
+            </div>-->
+           
+                <!--<div hidden="" id="attach" data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme="b" role="contentinfo" class="ui-footer ui-bar-b ui-footer-fixed slideup">
+			<div data-role="navbar" class="ui-navbar" role="navigation">
+				<ul class="ui-grid-c">
+					<li class="ui-block-a"><a href="#" onclick="$('#file').click();" class="ui-link ui-btn"><i class="blIcon fa fa-camera"></i><span>Camera</span></a></li>
+					<li class="ui-block-b"><a href="#" onclick="$('#file').click();" class="ui-link ui-btn"><i class="blIcon fa fa-photo"></i><span>Photo</span></a></li>
+					<li class="ui-block-c"><a href="#" onclick="$('#file').click();" class="ui-link ui-btn"><i class="blIcon fa fa-video-camera"></i><span>Video</span></a></li>
+                    <li class="ui-block-d"><a href="#" id="cancel1" class="ui-link ui-btn"><i class="blIcon fa fa-close"></i><span>Cancel</span></a></li>
+				</ul>
+			</div>
+		</div>-->
+        </div>
+        
+    </div>      
+          
+          
+          
+       </div>
+          
+          
+    </div>
+            
+       
+            
+        
+            
+        
+    
+	</body>
+</html>

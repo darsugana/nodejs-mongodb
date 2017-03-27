@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/macbook/Documents/pgProject/pg3/gokadabra/platforms/android/com.phonegap.plugins.facebookconnect/gokadabra-FacebookLib/assets"/></dataSet><dataSet config="debug"><source path="/Users/macbook/Documents/pgProject/pg3/gokadabra/platforms/android/com.phonegap.plugins.facebookconnect/gokadabra-FacebookLib/src/debug/assets"/></dataSet></merger>

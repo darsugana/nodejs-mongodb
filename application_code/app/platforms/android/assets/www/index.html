@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<html class="ui-mobile"><head>        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gokadabra</title>
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- jQueryMobileCSS - original without styling -->
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <!-- nativeDroid core CSS -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.css">
+    <!-- nativeDroid: Dark -->
+    <link rel="stylesheet" href="css/jquerymobile.nativedroid.light.css" id="jQMnDTheme">
+    <!-- nativeDroid: Color Schemes -->
+    <link rel="stylesheet" href="css/style.css" id="jQMnDColor">
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <!-- jQuery / jQueryMobile Scripts -->
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.xdomainajax.js"></script>
+    <script src="js/custom.js" type="text/javascript"></script>
+    <!--script src="http://191.239.12.168:1710/socket.io/socket.io.js"></script-->
+    <script type="text/javascript" src="js/customize.js"></script>
+    <script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" src="js/jquery.touchSwipe.js"></script>
+    <script type="text/javascript" charset="utf-8">
+    // Wait for device API libraries to load
+    var socket;
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+    // device APIs are available
+    //
+    function onDeviceReady() {
+        // Register the event listener
+        document.addEventListener("backbutton", onBackKeyDown, false);
+    		document.addEventListener("resume", onResume, false);
+    }
+	
+  document.addEventListener("resume", function() {
+    /*if(permanentStorage.getItem("userName") != null){
+        var username = permanentStorage.getItem("userName");
+        var loginDetails={  
+          id : username,  
+          username : username,
+          pic:'pic'
+        };
+        socket.emit('new user', loginDetails);
+        socket.emit('join chat');        
+      }*/
+  }, false);
+
+  document.addEventListener("pause", function() {
+    /*if($("#adminId").val() != ''){
+        var exitChat = {
+          adminId : $("#adminId").val()
+        };
+        socket.emit('exit chat', exitChat);
+    }*/
+  }, false);
+
+function clickCounter() {
+    if(typeof(Storage) !== "undefined") {
+        if (localStorage.clickcount) {
+            localStorage.clickcount = Number(localStorage.clickcount)+1;
+        } else {
+            localStorage.clickcount = 1;
+        }
+       if(localStorage.clickcount==2){return;}else{
+        $("#nickWrap").hide();
+        $("#contentWrap").show();
+        $(".h-btn").show();
+       }
+    } else {
+       console.log("Sorry, your browser does not support web storage...");
+    }
+}
+
+function onResume() {        
+      function clickCounter() {
+          if(typeof(Storage) !== "undefined") {
+              if (localStorage.clickcount) {
+                  localStorage.clickcount = Number(localStorage.clickcount)+1;
+              } else {
+                  localStorage.clickcount = 1;
+              }
+             if(localStorage.clickcount==2){return;}else{
+        		   	$("#nickWrap").hide();
+          			$("#contentWrap").show();
+          			$(".h-btn").show();
+      		   }
+          } else {
+              console.log("Sorry, your browser does not support web storage...");
+          }
+      }
+}
+// Handle the back button
+function onBackKeyDown() {
+	var person = confirm("Do you want to exit ?");
+  var username = permanentStorage.getItem("userName");
+  if (person) {
+      if($("#adminId").val() != ''){
+        var exitChat = {
+          adminId : $("#adminId").val(),
+          userId : username
+        };
+        socket.emit('exit chat', exitChat);
+      }
+    navigator.app.exitApp();
+  } else {
+    navigator.app.backHistory()
+  }
+}
+	
+$(document).ready(function(){
+  $("h2.question").click(function(){  
+    $(this).parent().addClass('visibleAns');
+    $(this).parent().siblings().removeClass('visibleAns');
+  });
+});
+
+</script>  
+<style>
+    .swiper-container {
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .align-r{
+      font-size: 10px !important;
+    }
+    .fa-thumbs-up::before{
+     font-size: 13px !important; 
+    }
+</style>
+</head> 
+	 <body class="ui-mobile-viewport ui-overlay-b" onLoad="onLoad();">
+      		 <div hidden="" id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+    <div data-role="page" data-theme="b" id="pageone">
+         <div data-role="header" data-tap-toggle="false"  data-theme="b" class="text-red ui-header ui-bar-b ui-header-fixed slidedown" role="banner">
+            
+    <img class="header-logo margin-top10 chat-img-h1" src="images/ic_launcher.png" width="42" height="47" alt="">
+<h6 class="padding-left6 chat-img-h ui-title" style="float: right; margin:0 10px 0 0 !important; font-family: open-sans;" id="users" role="heading" aria-level="1">
+    <!--<span id="psname">Gokadabra</span> <br><span class="font-size11" id="lastseen">last seen on time</span>-->
+    <span class="pull-right h-btn profileForm" style="display: block; margin-top: 8px;" ><i class="fa fa-user" style="
+    font-size: 25px !important; "></i>
+    </span>
+    <span class="pull-right h-btn" style="font-size: 20px; display: block; margin-right: 8px; margin-top: 7px;" onclick="window.plugins.socialsharing.share(null, null, null, 'http://www.gokadabra.com')">Invite <span style="font-weight: normal;">|</span>
+    </span>
+    <span class="pull-right h-btn faqButton" style="margin-right: 5px; font-size: 20px; display: block; margin-top: 7px;">FAQ <span style="font-weight: normal;">|</span>    
+    </span>
+</h6>
+             
+        </div>	        			
+        <div data-role="content" id="bubble" class="margin-top-sm ui-content" role="main"> 
+                <ul data-role="listview" data-inset="false" data-icon="false" data-divider-theme="a" id="myusers" style="display:none;" class="ui-listview">
+                </ul>
+                <div id="nickWrap" class="center-block" style="display: none;">
+                <div class="ui-grid-solo">
+                     <div class="ui-grid-solo margin-solo1 main-box-with-shadow">
+						<div class="ui-block-a">
+                        	<p class="justify" id="errmmsg" style="font-size:14px;">We as your personal assistant, concierge, butler - want to make life easier for you. Just message us whatever you need.</p>
+                             <p id="nickError"></p>
+                            <form id="setNick" action="#" method="post">
+                            	 <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                             <li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit ui-first-child ui-last-child">
+                        <div class="ui-grid-solo">
+                        	
+                        	<div class="">
+                            	<div class="">
+                                <input type="text" name="login" id="nickname" value="" data-clear-btn="true" placeholder="Enter email or phone to login." >
+                                <span style="color: #ff4444;" class="nickname"></span>
+                              </div>
+                                <br> <button id="nick23" class="btn-submit ui-btn" style="color:#fff;background-color:rgb(36, 32, 33) !important;" type="submit">Log In</button>
+                                <div style="height: 5px;">&nbsp;</div>
+                                 <button id="" class="btn-submit ui-btn fbLogin" style="color:#fff; background: #3b5998 !important;" type="submit">Log In With Facebook</button>                                  
+								  
+                            </div>
+							<p style="text-align:center; font-size:15px;" id="dh">Don't have, <a href="#" id="psreg" style="text-decoration:none;" class="ui-link">Create Account.</a></p>
+                        </div>
+                    </li>     
+                           <!--End Login -->
+						   <!--Start Register -->
+                        </ul></form></div>
+						<form id="setRegg" action="#" method="post" hidden="">
+                            	 <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                             <li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit ui-first-child ui-last-child">
+                        <div class="ui-grid-solo">
+                        	
+                        	 <div class="">
+                            	<div class="">
+                                <input type="text" name="name" id="psname" data-clear-btn="true" placeholder="Jhon Doe">
+                                <span style="color: #ff4444;" class="psname"></span>
+                              </div>
+                              <span style="float: left; height: 10px;">&nbsp;</span>
+								              
+                              <div class="">
+                                  <input type="text" name="email" id="psemail" data-clear-btn="true" placeholder="jhon@example.com" >
+                                  <span style="color: #ff4444;" class="psemail"></span>
+                              </div>
+                              <span style="float: left; height: 10px;">&nbsp;</span>
+								              
+                              <div class="">
+                                <input type="text" name="phone" id="psphone" data-clear-btn="true" placeholder="10 digit phone number" >
+                                <span style="color: #ff4444;" class="psphone"></span>
+                              </div>
+
+                <br />
+                          <br />
+                                 <button id="nick17" class="btn-submit ui-btn" style="color:#fff;background-color:rgb(36, 32, 33) !important; width: 46%; float: left;" type="submit">Sign Up</button>
+                          <button id="cancel-btn" class="btn-submit ui-btn" style="width: 46%; float: right; color:#fff;background-color:rgb(36, 32, 33) !important;" type="button">Cancel</button>
+								 
+                            </div>
+                        </div>
+                    </li>     
+                </ul>
+                </form>
+                </div>
+                </div>
+                </div>
+                <div id="contentWrap" style="display:block;">                
+                <!--End Form Input -->
+                <div style="display: none;" id="controls-placeholder"><!-- placeholder for controls --></div>
+            		  <div id="foo1"></div>
+					        <div id="foo"></div>
+                   <!-- end ui-grid-solo-->                                    
+                  <div id="scrolly" class="margin-top75">&nbsp;</div>  
+                  <div id="footer" class="main-box-with-shadow chat-footer-bg"> 
+                    <div id="type" class="ui-grid-solo ui-navbar" data-role="navbar" role="navigation">                  			
+                        <span class="chat-footer-span1">
+                          <!--i class="fa fa-paperclip" onclick="$('#imagefile').click();" style="margin-top:10px;"></i-->
+                          <i class="fa fa-paperclip" id="getPhotoFromGallery" style="margin-top:10px;"></i>
+                        </span>
+                        <span class="chat-footer-span2">
+                      		<form id="send-message">
+                            <div class="">
+                                <input type="text" name="name" id="msg" value="" placeholder="I need..." class="important">
+                            </div>
+                          </form>
+                        </span>                              
+                        <span id="chaxt" class="chat-footer-span4"><i class="fa fa-paper-plane" style="margin-top:-5px;"></i></span>
+                    </div>
+                    <div class="align-l retry" style="display: none;">
+                        <span>Retry</span>
+                    </div>
+                    <ul id="uszers">
+                    		<!--<li><p>We are sorry..!! No Admin are Online, Please try again later.</p></li>-->
+                    </ul>
+                  </div> 
+          <!--<div class="ui-grid-b" id="type">
+                <div class="list ui-block-a width3">
+                <img src="images/icon-smile.png" width="60" height="60" alt=""> </div>
+                <div class="list ui-block-b width90">
+                   <form class="inputtype"> 
+                    <input id="msg" type="text" placeholder="Type your message here..."/>
+                    </form>
+                    
+                </div>
+                <div class="list ui-block-b width3">
+                
+                <img id="chat" src="images/icon-arrow.png" width="60" height="60" alt=""> </div>
+            
+            </div>-->
+           
+                <!--<div hidden="" id="attach" data-position="fixed" data-tap-toggle="false" data-role="footer" data-theme="b" role="contentinfo" class="ui-footer ui-bar-b ui-footer-fixed slideup">
+			<div data-role="navbar" class="ui-navbar" role="navigation">
+				<ul class="ui-grid-c">
+					<li class="ui-block-a"><a href="#" onclick="$('#file').click();" class="ui-link ui-btn"><i class="blIcon fa fa-camera"></i><span>Camera</span></a></li>
+					<li class="ui-block-b"><a href="#" onclick="$('#file').click();" class="ui-link ui-btn"><i class="blIcon fa fa-photo"></i><span>Photo</span></a></li>
+					<li class="ui-block-c"><a href="#" onclick="$('#file').click();" class="ui-link ui-btn"><i class="blIcon fa fa-video-camera"></i><span>Video</span></a></li>
+                    <li class="ui-block-d"><a href="#" id="cancel1" class="ui-link ui-btn"><i class="blIcon fa fa-close"></i><span>Cancel</span></a></li>
+				</ul>
+			</div>
+		</div>-->
+        </div>
+        <div id="profile" class="center-block" style="display:none;">                          
+          <div class="ui-grid-solo">
+              <div class="ui-grid-solo margin-solo1 main-box-with-shadow">
+                <div class="ui-block-a">
+                  <form id="setProfile" action="#" method="post" >
+                  <input type="hidden" name="login" id="login" />
+                        <ul data-role="listview" data-inset="true" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+                          <li data-role="fieldcontain" class="ui-field-contain ui-li-static ui-body-inherit ui-first-child ui-last-child">
+                            <div class="ui-grid-solo">                          
+                              <div class="">                          
+                                  <div class="">
+                                    <input type="text" name="name" id="name" value="" data-clear-btn="true" placeholder="Name">
+                                    <span style="color: #ff4444;" class="name"></span>
+                                  </div>
+                                  <span style="float: left; height: 10px;">&nbsp;</span>
+                                  
+                                  <div class="">
+                                    <input type="text" name="email" id="email" value="" data-clear-btn="true" placeholder="Email address">
+                                    <span style="color: #ff4444;" class="email"></span>
+                                  </div>
+                                  <span style="float: left; height: 10px;">&nbsp;</span>
+                                  
+                                  <div class="">
+                                    <input type="text" name="phone" id="phone" value="" data-clear-btn="true" placeholder="Phone number" >
+                                    <span style="color: #ff4444;" class="phone"></span>
+                                  </div>
+                                  <span style="float: left; height: 10px;">&nbsp;</span>
+                                  
+                                  <div class="">
+                                    <p>Mobile Payment</p>
+                                  </div>
+                                  <span style="float: left; height: 10px;">&nbsp;</span>
+
+                                  <div class="">
+                                    <p>PAYTM Wallet</p>
+                                  </div>
+                                  <span style="float: left; height: 10px;">&nbsp;</span>
+
+                                  <div class="logoutFromApp">
+                                    <p>Logout</p>
+                                  </div>
+
+
+                                  <br />
+                                  <button id="nick17" class="btn-submit ui-btn saveButton" style="color:#fff;background-color:rgb(36, 32, 33) !important; width: 46%; float: left;" type="submit">Save</button>
+                                  <button id="cancel-btn" class="btn-submit ui-btn cancelButton" style="width: 46%; float: right; color:#fff;background-color:rgb(36, 32, 33) !important;" type="button">Cancel</button>              
+                              </div>
+                            </div>                                                
+                            </li>
+                        </ul>
+                  </form>
+                </div>
+              </div>
+          </div>      
+        </div> 
+
+        <div id="faqPage" class="" style="display:none; margin-top: 20px;">
+                          
+          <div class="ui-grid-solo">
+              <div class="ui-grid-solo margin-solo1">
+                  
+                    <section>
+                      <div class="qus-ans faqButtonHide" style="font-weight: bold; text-align: right; margin-top: 10px; margin-bottom: 10px;">
+                      <span style="border: 1px solid rgb(211, 211, 211); margin: 10px 0px 10px 10px; padding: 8px; background: none repeat scroll 0% 0% rgb(77, 77, 77); color: rgb(255, 255, 255);">Close</span>
+                      </div>
+                      <div class="Faq-container">
+                        <div class="qus-ans">
+                          <h2 class="question">I don't get it! What can GoKadabra do for me?<span id="plus"><i class="fa fa-plus"></i></span></h2>
+                          <div class="answer">
+                            <p>Our mission is making your life more easy - we are your butler, your concierge, your personal assistant. Real humans deal with your requests and present suitable solutions. We deal with your requests and wishes the same way you'd do it yourself - whether it's taking care of restaurant reservations, ordering food, taxis, booking flights and hotels... whatever, whenever, wherever!<br />
+                            We google for you, make phone calls, read through reviews and comparison portals - we go through time-consuming order processes for you to save your valuable time and offer the best possible solution. We want to make access to services and products more intuitive by making them all available through simple messages - so you can get what you want, where you want, when you want.
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div class="qus-ans">
+                          <h2 class="question">Q: No, really! What kinds of things can I use GoKadabra for?<span id="plus"><i class="fa fa-plus"></i></span></h2>
+                          <div class="answer">
+                            <p>Anything you want. As long as it's not illegal. Just try it!.</p>
+                          </div>
+                        </div>
+                        
+                        <div class="qus-ans">
+                          <h2 class="question">How quickly will I get what I want after requesting it?<span id="plus"><i class="fa fa-plus"></i></span></h2>
+                          <div class="answer">
+                            <p>As soon as possible.</p>
+                          </div>
+                        </div>
+                        
+                        <div class="qus-ans">
+                          <h2 class="question">How much does GoKadabra cost?<span id="plus"><i class="fa fa-plus"></i></span></h2>
+                          <div class="answer">
+                            <p>It's completely free to chat with Gokadabra. When you order something, we'll let you know the total price so you can confirm it before you are billed. There are no hidden fees.</p>
+                          </div>
+                        </div>
+                        
+                        <div class="qus-ans">
+                        <h2 class="question">How do I make a payment and how do you know where I live, etc.?<span id="plus"><i class="fa fa-plus"></i></span></h2>
+                        <div class="answer">
+                          <p>At your first order we'll send you a payment link through our payment partner. We'll ask you for all required data we need for completing the order. We'll also ask you if you'd like us to save your data in order to make future orders more easy.</p>
+                        </div>
+                      </div>
+
+                      <div class="qus-ans">
+                        <h2 class="question">Where is GoKadabra available?<span id="plus"><i class="fa fa-plus"></i></span></h2>
+                        <div class="answer">
+                          <p>Anywhere in the India.</p>
+                        </div>
+                      </div>            
+                      </div>
+                    </section>
+              </div>
+          </div>        
+        </div>
+    </div>          
+         	</div>
+            <input style="display:none;" id="imagefile" type="file" accept="image/*" />
+            <input type="hidden" name="adminId" value="" id="adminId">
+</body>
+</html>
